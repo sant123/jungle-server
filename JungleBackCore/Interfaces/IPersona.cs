@@ -1,0 +1,20 @@
+﻿using JungleBackCore.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace JungleBackCore.Interfaces
+{
+    public interface IPersona
+    {
+        Task<PersonaDTO> Insertar(PersonaDTO persona);
+        Task Actualizar(PersonaDTO persona);
+        Task Eliminar(int idPersona);
+
+        Task<IEnumerable<PersonaDTO>> ObtenerPersonas();
+       // Task ObtenerPersona();//
+        Task<PersonaDTO> ObtenerByIdPersona(int id);
+
+    }
+}
