@@ -18,7 +18,7 @@ namespace JungleBackCore.DTOs
         public DateTime FechaNacimiento { get; set; }
         public string NumeroDocumento { get; set; }
         public string RolUsuario { get; set; }
-        public int IdUsuario { get; set; }
+        public int? IdUsuario { get; set; }
         public string Usuario { get; set; }
     }
 }

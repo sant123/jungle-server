@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace JungleBackInfrastructure.Repositories
@@ -32,7 +31,6 @@ namespace JungleBackInfrastructure.Repositories
             personaActualizar.FechaNacimiento = DateTime.Now;
             personaActualizar.NumeroDocumento = persona.NumeroDocumento;
             await _context.SaveChangesAsync();
-
         }
 
         public async Task Eliminar(int idPersona)
@@ -63,7 +61,6 @@ namespace JungleBackInfrastructure.Repositories
         {
             throw new NotImplementedException();
         }
-
 
         public async Task<IEnumerable<PersonaDTO>> ObtenerPersonas()
         {
