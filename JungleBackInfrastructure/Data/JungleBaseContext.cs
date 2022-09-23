@@ -44,20 +44,13 @@ namespace JungleBackInfrastructure.Data
         {
             modelBuilder.Entity<Cita>(entity =>
             {
-                entity.Property(e => e.Direccion).HasColumnType("text");
-
                 entity.Property(e => e.Fecha).HasColumnType("date");
 
                 entity.Property(e => e.HoraFin).HasColumnName("HoraFIn");
 
                 entity.Property(e => e.Sede)
-                    .HasMaxLength(20)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.IdDetalleCitaNavigation)
-                    .WithMany(p => p.Cita)
-                    .HasForeignKey(d => d.IdDetalleCita)
-                    .HasConstraintName("FK_Cita_DetalleCita");
 
                 entity.HasOne(d => d.IdEstadoNavigation)
                     .WithMany(p => p.Cita)
@@ -73,6 +66,10 @@ namespace JungleBackInfrastructure.Data
                     .WithMany(p => p.CitaIdUsuarioAtiendeNavigation)
                     .HasForeignKey(d => d.IdUsuarioAtiende)
                     .HasConstraintName("FK_Cita_Usuarios1");
+
+                entity.HasMany(c => c.DetalleCitas)
+                    .WithOne(d => d.Cita)
+                    .HasForeignKey(c => c.IdCita);
             });
 
             modelBuilder.Entity<DetalleCita>(entity =>
