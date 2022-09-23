@@ -34,20 +34,12 @@ namespace JungleBackApi.Controllers
             return Ok(Cita);
         }
 
-
         [HttpPost]
         public async Task<ActionResult<CitaDTO>> CitaAregistrar([FromForm] CitaDTO cita)
         {
+            cita.IdEstado = 1;
             var CitaAregistrar = await _citaRepository.Insertar(cita);
             return Ok(CitaAregistrar);
-        }
-
-
-        [HttpPut]
-        public async Task<ActionResult<CitaDTO>> EliminarCita([FromForm] CitaDTO cita)
-        {
-            var citaRegistrada = await _citaRepository.Insertar(cita);
-            return Ok(citaRegistrada);
         }
 
         [HttpPut]
@@ -58,5 +50,27 @@ namespace JungleBackApi.Controllers
             return Ok();
         }
 
+        [HttpDelete]
+        public async Task<ActionResult<CitaDTO>> EliminarCita([FromForm] CitaDTO cita)
+        {
+            var citaRegistrada = await _citaRepository.Insertar(cita);
+            return Ok(citaRegistrada);
+        }
+
+        // api/[controller]/Barberos
+        [HttpGet]
+        [Route("Barberos")]
+        public async Task<ActionResult<dynamic>> ObtenerBarberos() {
+            var Barberos = await _citaRepository.ObtenerBarberos();
+            return Ok(Barberos);
+        }
+
+        // api/[controller]/Clientes
+        [HttpGet]
+        [Route("Clientes")]
+        public async Task<ActionResult<dynamic>> ObtenerClientes() {
+            var Clientes = await _citaRepository.ObtenerClientes();
+            return Ok(Clientes);
+        }
     }
 }

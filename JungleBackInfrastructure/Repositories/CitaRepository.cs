@@ -20,8 +20,6 @@ namespace JungleBackInfrastructure.Repositories
             _context = context;
         }
 
-
-
         public async Task Actualizar(CitaDTO cita)
         {
             var citaActualizar = await _context.Cita.Where(x => x.Id == cita.Id).FirstOrDefaultAsync();
@@ -30,13 +28,9 @@ namespace JungleBackInfrastructure.Repositories
             citaActualizar.HoraFin = cita.HoraFin;
             citaActualizar.Fecha = cita.Fecha;
             citaActualizar.Sede = cita.Sede;
-            citaActualizar.Direccion = cita.Direccion;
-            citaActualizar.IdDetalleCita = cita.IdDetalleCita;
             citaActualizar.IdUsuarioAgenda = cita.IdUsuarioAgenda;
             citaActualizar.IdUsuarioAtiende = cita.IdUsuarioAtiende;
             citaActualizar.IdEstado = cita.IdEstado;
-
-
         }
 
         public async Task Eliminar(int idCita)
@@ -54,8 +48,6 @@ namespace JungleBackInfrastructure.Repositories
             citaRegistrar.HoraFin = datosCita.HoraFin;
             citaRegistrar.Fecha = datosCita.Fecha;
             citaRegistrar.Sede = datosCita.Sede;
-            citaRegistrar.Direccion = datosCita.Direccion;
-            citaRegistrar.IdDetalleCita = datosCita.IdDetalleCita;
             citaRegistrar.IdUsuarioAgenda = datosCita.IdUsuarioAgenda;
             citaRegistrar.IdUsuarioAtiende = datosCita.IdUsuarioAtiende;
             citaRegistrar.IdEstado = datosCita.IdEstado;
@@ -64,8 +56,6 @@ namespace JungleBackInfrastructure.Repositories
             datosCita.Id = citaRegistrar.Id;
             return datosCita;
         }
-
-      
 
         public async Task<IEnumerable<CitaDTO>> ObtenerCita()
         {
@@ -76,8 +66,6 @@ namespace JungleBackInfrastructure.Repositories
                 HoraFin = cita.HoraFin,
                 Fecha = cita.Fecha,
                 Sede = cita.Sede,
-                Direccion = cita.Direccion,
-                IdDetalleCita = cita.IdDetalleCita,
                 IdUsuarioAgenda = cita.IdUsuarioAgenda,
                 IdUsuarioAtiende = cita.IdUsuarioAtiende,
                 IdEstado = cita.IdEstado
@@ -86,21 +74,16 @@ namespace JungleBackInfrastructure.Repositories
             return CitaDTO;
         }
 
-
-
-
         public async Task<CitaDTO> ObtenerByIdCita(int id)
         {
-            var CitaDTO = await _context.Cita.Where(cita => cita.Id == id). Select(Cita => new CitaDTO
+            var CitaDTO = await _context.Cita.Where(cita => cita.Id == id).Select(Cita => new CitaDTO
 
-                {
-                       Id = Cita.Id,
+            {
+                Id = Cita.Id,
                 HoraInicio = Cita.HoraInicio,
                 HoraFin = Cita.HoraFin,
                 Fecha = Cita.Fecha,
                 Sede = Cita.Sede,
-                Direccion = Cita.Direccion,
-                IdDetalleCita = Cita.IdDetalleCita,
                 IdUsuarioAgenda = Cita.IdUsuarioAgenda,
                 IdUsuarioAtiende = Cita.IdUsuarioAtiende,
                 IdEstado = Cita.IdEstado
@@ -109,7 +92,48 @@ namespace JungleBackInfrastructure.Repositories
             return CitaDTO;
         }
 
+        public async Task<IEnumerable<dynamic>> ObtenerBarberos()
+        {
+            var Barberos = await (from p in _context.Persona
+                                  join u in _context.Usuarios
+                                  on p.Id equals u.IdPersona
+                                  join uxr in _context.UsuarioXrol
+                                  on u.Id equals uxr.IdUsuario
+                                  join r in _context.Roles
+                                  on uxr.IdRol equals r.Id
+                                  where r.Nombre == "Barbero"
+                                  select new
+                                  {
+                                      Id = u.Id,
+                                      Nombre = p.Nombre,
+                                      Apellido = p.Apellido
+                                  }
+            ).Distinct().ToListAsync();
 
+
+            return Barberos;
+        }
+
+        public async Task<IEnumerable<dynamic>> ObtenerClientes()
+        {
+            var Clientes = await (from p in _context.Persona
+                                  join u in _context.Usuarios
+                                  on p.Id equals u.IdPersona
+                                  join uxr in _context.UsuarioXrol
+                                  on u.Id equals uxr.IdUsuario
+                                  join r in _context.Roles
+                                  on uxr.IdRol equals r.Id
+                                  where r.Nombre == "Cliente"
+                                  select new
+                                  {
+                                      Id = u.Id,
+                                      Nombre = p.Nombre,
+                                      Apellido = p.Apellido
+                                  }
+            ).Distinct().ToListAsync();
+
+
+            return Clientes;
+        }
     }
-
 }

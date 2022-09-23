@@ -11,11 +11,9 @@ namespace JungleBackCore.Interfaces
         Task<CitaDTO> Insertar(CitaDTO cita);
         Task Actualizar(CitaDTO cita);
         Task Eliminar(int idCita);
-
         Task<IEnumerable<CitaDTO>> ObtenerCita();
-
         Task<CitaDTO> ObtenerByIdCita(int id);
-
-
+        Task<IEnumerable<dynamic>> ObtenerBarberos();
+        Task<IEnumerable<dynamic>> ObtenerClientes();
     }
 }
