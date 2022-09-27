@@ -37,7 +37,6 @@ namespace JungleBackApi.Controllers
         [HttpPost]
         public async Task<ActionResult<CitaDTO>> CitaAregistrar([FromForm] CitaDTO cita)
         {
-            cita.IdEstado = 1;
             var CitaAregistrar = await _citaRepository.Insertar(cita);
             return Ok(CitaAregistrar);
         }
