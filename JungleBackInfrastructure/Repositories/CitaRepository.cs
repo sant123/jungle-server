@@ -68,7 +68,10 @@ namespace JungleBackInfrastructure.Repositories
                 Sede = cita.Sede,
                 IdUsuarioAgenda = cita.IdUsuarioAgenda,
                 IdUsuarioAtiende = cita.IdUsuarioAtiende,
-                IdEstado = cita.IdEstado
+                IdEstado = cita.IdEstado,
+                Barbero = cita.IdUsuarioAtiendeNavigation.IdPersonaNavigation.Nombre + " " + cita.IdUsuarioAtiendeNavigation.IdPersonaNavigation.Apellido,
+                Cliente = cita.IdUsuarioAgendaNavigation.IdPersonaNavigation.Nombre + " " + cita.IdUsuarioAgendaNavigation.IdPersonaNavigation.Apellido
+
             }).ToListAsync();
 
             return CitaDTO;

@@ -38,6 +38,7 @@ namespace JungleBackApi.Controllers
         [HttpPost]
         public async Task<ActionResult<PersonaDTO>> RegistrarPersona([FromForm] PersonaDTO persona)
         {
+            persona.IdRol=3;
             var personaRegistrada = await _personaRepository.Insertar(persona);
             UsuarioDTO usuarioARegistrar = new UsuarioDTO
             {

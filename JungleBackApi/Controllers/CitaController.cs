@@ -49,11 +49,11 @@ namespace JungleBackApi.Controllers
             return Ok();
         }
 
-        [HttpDelete]
-        public async Task<ActionResult<CitaDTO>> EliminarCita([FromForm] CitaDTO cita)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<CitaDTO>> EliminarCita( int id)
         {
-            var citaRegistrada = await _citaRepository.Insertar(cita);
-            return Ok(citaRegistrada);
+            await _citaRepository.Eliminar(id);
+            return Ok();
         }
 
         // api/[controller]/Barberos

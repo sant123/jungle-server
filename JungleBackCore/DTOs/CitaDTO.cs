@@ -14,5 +14,9 @@ namespace JungleBackCore.DTOs
         public int? IdUsuarioAgenda { get; set; }
         public int? IdUsuarioAtiende { get; set; }
         public int? IdEstado { get; set; }
+        public String Barbero { get; set; }
+        public String Cliente { get; set; }
+
+
     }
 }
