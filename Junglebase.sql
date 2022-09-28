@@ -241,7 +241,10 @@ CREATE TABLE [dbo].[UsuarioXRol](
 GO
 SET IDENTITY_INSERT [dbo].[Estado] ON 
 
-INSERT [dbo].[Estado] ([Id], [Nombre], [Descripcion]) VALUES (1, NULL, N'')
+INSERT [dbo].[Estado] ([Id], [Nombre], [Descripcion]) VALUES (1, N'Agendado', N'')
+INSERT [dbo].[Estado] ([Id], [Nombre], [Descripcion]) VALUES (2, N'En Curso', N'')
+INSERT [dbo].[Estado] ([Id], [Nombre], [Descripcion]) VALUES (3, N'Terminado', N'')
+INSERT [dbo].[Estado] ([Id], [Nombre], [Descripcion]) VALUES (4, N'Cancelado', N'')
 SET IDENTITY_INSERT [dbo].[Estado] OFF
 SET IDENTITY_INSERT [dbo].[Inventario] ON 
 
