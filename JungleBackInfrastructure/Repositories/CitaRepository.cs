@@ -23,7 +23,6 @@ namespace JungleBackInfrastructure.Repositories
         public async Task Actualizar(CitaDTO cita)
         {
             var citaActualizar = await _context.Cita.Where(x => x.Id == cita.Id).FirstOrDefaultAsync();
-            citaActualizar.Id = cita.Id;
             citaActualizar.HoraInicio = cita.HoraInicio;
             citaActualizar.HoraFin = cita.HoraFin;
             citaActualizar.Fecha = cita.Fecha;
@@ -31,6 +30,7 @@ namespace JungleBackInfrastructure.Repositories
             citaActualizar.IdUsuarioAgenda = cita.IdUsuarioAgenda;
             citaActualizar.IdUsuarioAtiende = cita.IdUsuarioAtiende;
             citaActualizar.IdEstado = cita.IdEstado;
+            await _context.SaveChangesAsync();
         }
 
         public async Task Eliminar(int idCita)
@@ -68,7 +68,10 @@ namespace JungleBackInfrastructure.Repositories
                 Sede = cita.Sede,
                 IdUsuarioAgenda = cita.IdUsuarioAgenda,
                 IdUsuarioAtiende = cita.IdUsuarioAtiende,
-                IdEstado = cita.IdEstado
+                IdEstado = cita.IdEstado,
+                Barbero = cita.IdUsuarioAtiendeNavigation.IdPersonaNavigation.Nombre + " " + cita.IdUsuarioAtiendeNavigation.IdPersonaNavigation.Apellido,
+                Cliente = cita.IdUsuarioAgendaNavigation.IdPersonaNavigation.Nombre + " " + cita.IdUsuarioAgendaNavigation.IdPersonaNavigation.Apellido
+
             }).ToListAsync();
 
             return CitaDTO;
